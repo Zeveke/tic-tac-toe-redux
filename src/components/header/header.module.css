@@ -1,0 +1,17 @@
+.header {
+	color: rgb(29, 124, 91);
+	text-align: center inherit;
+	box-sizing: border-box;
+	height: 40px;
+	width: 154px;
+	font-size: 20px;
+}
+
+.los {
+	color: rgb(82, 83, 61);
+	text-align: center inherit;
+	box-sizing: border-box;
+	height: 40px;
+	width: 154px;
+	font-size: 20px;
+}
