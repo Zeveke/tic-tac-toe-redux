@@ -1,9 +1,10 @@
+import { useSelector } from 'react-redux';
 import { Cell } from '../index';
 import styles from './field.module.css';
-import { store } from '../../store';
+import { selectCells } from '../../selectors';
 
 export const Field = () => {
-	const { cells } = store.getState();
+	const cells = useSelector(selectCells);
 
 	return (
 		<div className={styles.field}>

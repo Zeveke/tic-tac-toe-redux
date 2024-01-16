@@ -1,12 +1,14 @@
+import { useSelector } from 'react-redux';
 import styles from './header.module.css';
-import { store } from '../../store';
+import { selectSym, selectVictory } from '../../selectors';
 
 export const Header = () => {
-	const { sym, victory } = store.getState();
+	const sym = useSelector(selectSym);
+	const victory = useSelector(selectVictory);
 
 	return (
-		<div className={victory ? styles.header : styles.los}>
-			{victory ? `Победитель : ${sym}` : `Текущий ход : ${sym}`}
+		<div className={styles.header}>
+			{victory ? `Победитель ${sym}` : `Текущий ход ${sym}`}
 		</div>
 	);
 };
