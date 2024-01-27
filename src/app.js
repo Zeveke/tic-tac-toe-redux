@@ -1,11 +1,24 @@
-import { useState } from 'react';
-import { AppLayout } from './app-layout';
-import { store } from './store';
+import { Continue, Field, Header } from './components';
+import { Component } from 'react';
 
-export const App = () => {
-	const [appState, setAppState] = useState(false);
+export class App extends Component {
+	constructor(props) {
+		super(props);
+	}
 
-	store.subscribe = () => setAppState(!appState);
+	componentDidMount() {
+		console.log(this.props.message);
+	}
 
-	return <AppLayout />;
-};
+	render() {
+		return (
+			<div className="flex justify-center items-center h-screen">
+				<div className="w-40">
+					<Header />
+					<Field />
+					<Continue />
+				</div>
+			</div>
+		);
+	}
+}

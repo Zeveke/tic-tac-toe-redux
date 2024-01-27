@@ -1,24 +1,41 @@
-import styles from './cell.module.css';
-import { store } from '../../store';
-import { VICTORY_COMBINATION } from '../../constants/constants';
+import { connect } from 'react-redux';
+import { CHANGE_SYMBOL, CHECK_VICTORY, fieldClick } from '../../actions';
+import { Component } from 'react';
 
-export const Cell = ({ label, value }) => {
-	const { victory } = store.getState();
+export class CellContainer extends Component {
+	constructor(props) {
+		super(props);
+	}
 
-	const handleCellClick = (lab) => {
-		if (victory) return;
-		store.dispatch({ type: 'FIELD_CLICK', payload: lab });
-		store.dispatch({ type: 'CHECK_VICTORY', payload: VICTORY_COMBINATION });
-		store.dispatch({ type: 'CHANGE_SYMBOL' });
-		store.subscribe();
-	};
+	render() {
+		return (
+			<div
+				className="border-black border-[1px] w-[50px] h-[50px] text-[50px] pb-[5px] flex justify-center items-center cursor-pointer"
+				onClick={() =>
+					this.props.value === ''
+						? this.props.handleCellClick(this.props.label, this.props.victory)
+						: null
+				}
+			>
+				{this.props.value}
+			</div>
+		);
+	}
+}
 
-	return (
-		<div
-			className={styles.cell}
-			onClick={() => (value === '' ? handleCellClick(label) : null)}
-		>
-			{value}
-		</div>
-	);
-};
+const mapStateToProps = (state, ownProps) => ({
+	victory: state.victory,
+	label: ownProps.label,
+	value: ownProps.value,
+});
+
+const mapDispatchToProps = dispatch => ({
+	handleCellClick: (lab, vic) => {
+		if (vic) return;
+		dispatch(fieldClick(lab));
+		dispatch(CHECK_VICTORY);
+		dispatch(CHANGE_SYMBOL);
+	},
+});
+
+export const Cell = connect(mapStateToProps, mapDispatchToProps)(CellContainer);

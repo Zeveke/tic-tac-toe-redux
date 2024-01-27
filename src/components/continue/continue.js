@@ -1,16 +1,28 @@
-import styles from './continue.module.css';
-import { store } from '../../store';
-import { INIT_FIELD } from '../../constants/constants';
+import { connect } from 'react-redux';
+import { REFRESH_FIELD } from '../../actions';
+import { Component } from 'react';
 
-export const Continue = () => {
-	const onClick = () => {
-		store.dispatch({ type: 'REFRESH_FIELD', payload: INIT_FIELD });
-		store.subscribe();
-	};
+export class ContinueContainer extends Component {
+	constructor(props) {
+		super(props);
+	}
 
-	return (
-		<button className={styles.continue} onClick={onClick}>
-			Начать заново
-		</button>
-	);
-};
+	render() {
+		return (
+			<button
+				className="border w-[154px] h-[40px] text-xl mt-1"
+				onClick={this.props.continueButtonClick}
+			>
+				Начать заново
+			</button>
+		);
+	}
+}
+
+const mapDispatchToProps = (dispatch) => ({
+	continueButtonClick: () => {
+		dispatch(REFRESH_FIELD);
+	},
+});
+
+export const Continue = connect(null, mapDispatchToProps)(ContinueContainer);

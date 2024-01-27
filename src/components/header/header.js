@@ -1,12 +1,25 @@
-import styles from './header.module.css';
-import { store } from '../../store';
+import { connect } from 'react-redux';
+import { Component } from 'react';
 
-export const Header = () => {
-	const { sym, victory } = store.getState();
+export class HeaderContainer extends Component {
+	constructor(props) {
+		super(props);
+	}
 
-	return (
-		<div className={victory ? styles.header : styles.los}>
-			{victory ? `Победитель : ${sym}` : `Текущий ход : ${sym}`}
-		</div>
-	);
-};
+	render() {
+		return (
+			<div className="text-center box-border h-10 w-40 text-2xl">
+				{this.props.victory
+					? `Победитель ${this.props.sym}`
+					: `Ходит ${this.props.sym}`}
+			</div>
+		);
+	}
+}
+
+const mapStateToProps = (state) => ({
+	victory: state.victory,
+	sym: state.sym,
+});
+
+export const Header = connect(mapStateToProps)(HeaderContainer);

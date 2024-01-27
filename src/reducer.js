@@ -1,7 +1,7 @@
 import { INIT_FIELD } from './constants/constants';
 
 const initialState = {
-	sym: '0',
+	sym: 'X',
 	cells: INIT_FIELD,
 	victory: false,
 };
@@ -21,15 +21,15 @@ export const appReducer = (state = initialState, action) => {
 		case 'FIELD_CLICK': {
 			return {
 				...state,
-				cells: state.cells.map((el) =>
+				cells: state.cells.map(el =>
 					el.label === payload ? { ...el, value: state.sym } : el,
 				),
 			};
 		}
 
 		case 'CHECK_VICTORY': {
-			return payload.some((comb) =>
-				comb.every((el) => state.cells[el].value === state.sym),
+			return payload.some(comb =>
+				comb.every(el => state.cells[el].value === state.sym),
 			)
 				? {
 						...state,
@@ -43,7 +43,7 @@ export const appReducer = (state = initialState, action) => {
 			return state.sym === 'X'
 				? {
 						...state,
-						sym: '0',
+						sym: '○',
 				  }
 				: {
 						...state,
